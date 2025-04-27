@@ -41,7 +41,21 @@ class Product:
 PRODUCT_FIELDS = [field.name for field in fields(Product)]
 
 
-
+def parse_single_product(product: Tag) -> Product:
+    product = Product(
+        title=product.select_one(".title")["title"],
+        description=product.select_one(".description").text.replace(
+            "\xa0", " "
+        ),
+        price=float(
+            product.select_one(".price").text.replace("$", "")
+        ),
+        rating=len(product.select_one(".ratings").find_all("span")),
+        num_of_reviews=int(
+            product.select_one(".review-count").text.split()[0]
+        ),
+    )
+    return product
 
 
 def get_single_page_products(page_url: str) -> list[Product]:
