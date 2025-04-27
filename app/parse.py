@@ -41,11 +41,7 @@ class Product:
 PRODUCT_FIELDS = [field.name for field in fields(Product)]
 
 
-def parse_single_product(product: Tag) -> Product:
-    product = Product(
 
-    )
-    return product
 
 
 def get_single_page_products(page_url: str) -> list[Product]:
